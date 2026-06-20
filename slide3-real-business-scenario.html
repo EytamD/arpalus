@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 3 - Real Business Scenario</title>
+<style>
+  :root {
+    --ink: #172033;
+    --muted: #647084;
+    --paper: #fbfaf7;
+    --line: #e5e0d6;
+    --blue: #2457ff;
+    --green: #18a957;
+    --gold: #d88a00;
+    --rose: #e54b63;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+  }
+
+  body {
+    color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:
+      linear-gradient(90deg, rgba(36, 87, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(rgba(36, 87, 255, 0.05) 1px, transparent 1px),
+      var(--paper);
+    background-size: 44px 44px;
+    padding: 30px;
+  }
+
+  .slide {
+    width: min(1220px, 100%);
+    min-height: calc(100vh - 60px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    gap: 18px;
+  }
+
+  .brand {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .logo {
+    color: #1268f3;
+    font-family: "Segoe UI", Inter, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.07em;
+    line-height: 0.9;
+  }
+
+  .logo .a-dot {
+    position: relative;
+    display: inline-block;
+  }
+
+  .logo .dots {
+    position: absolute;
+    top: -10px;
+    left: 51%;
+    display: flex;
+    gap: 4px;
+    transform: translateX(-50%);
+  }
+
+  .logo .dots i {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .logo .dots i:nth-child(1) {
+    background: #77c843;
+  }
+
+  .logo .dots i:nth-child(2) {
+    background: #ee4657;
+  }
+
+  .logo .dots i:nth-child(3) {
+    background: #1268f3;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 460px;
+    gap: 28px;
+    align-items: center;
+    padding-bottom: 18px;
+    border-bottom: 3px solid var(--ink);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 4px;
+    background: var(--blue);
+    border-radius: 999px;
+  }
+
+  h1 {
+    max-width: 780px;
+    margin: 12px 0 0;
+    font-size: clamp(46px, 6vw, 78px);
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+  }
+
+  .intro {
+    border-left: 5px solid var(--blue);
+    padding: 3px 0 3px 20px;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.45;
+  }
+
+  .intro strong {
+    color: var(--ink);
+  }
+
+  .scenario {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.78);
+    border: 2px solid var(--ink);
+    border-radius: 24px;
+    padding: 26px;
+    box-shadow: 8px 8px 0 rgba(23, 32, 51, 0.1);
+  }
+
+  .table-card h2,
+  .conclusions h2 {
+    margin: 0 0 16px;
+    font-size: 28px;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #fff;
+  }
+
+  th,
+  td {
+    padding: 15px 18px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+
+  th {
+    background: var(--ink);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  tr:last-child td {
+    border-bottom: 0;
+  }
+
+  td.count {
+    width: 118px;
+    color: var(--ink);
+    font-size: 28px;
+    font-weight: 900;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  td.interpretation {
+    width: 38%;
+    color: #3f4858;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+
+  tr.correct td.count {
+    color: var(--green);
+  }
+
+  tr.same-brand td.count {
+    color: var(--gold);
+  }
+
+  tr.diff-brand td.count {
+    color: var(--rose);
+  }
+
+  .conclusions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .conclusions h2 {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+
+  .insight {
+    border: 1px solid var(--line);
+    border-left: 5px solid var(--blue);
+    border-radius: 16px;
+    background: #fff;
+    padding: 15px 16px;
+  }
+
+  .insight b {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--ink);
+    font-size: 16px;
+  }
+
+  .insight span {
+    color: #3f4858;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  @media (max-width: 900px) {
+    .hero,
+    .scenario,
+    .conclusions {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="slide">
+    <div class="brand" aria-label="Arpalus branding">
+      <div class="logo">arp<span class="a-dot">a<span class="dots"><i></i><i></i><i></i></span></span>lus</div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Part 2</div>
+        <h1>Analyze a Real Business Scenario</h1>
+      </div>
+
+      <div class="intro">
+        <strong>A product recognition model</strong> was recently trained on a new product category. The following results were observed.
+      </div>
+    </section>
+
+    <section class="scenario">
+      <div class="card table-card">
+        <h2>Observed Results</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Outcome</th>
+              <th>Count</th>
+              <th>Share</th>
+              <th>Interpretation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="correct">
+              <td>Correctly identified</td>
+              <td class="count">610</td>
+              <td class="count">61%</td>
+              <td class="interpretation">Not reliable enough for a production business workflow; too many cases still create errors or uncertainty.</td>
+            </tr>
+            <tr class="same-brand">
+              <td>Identified as another product from the same brand</td>
+              <td class="count">180</td>
+              <td class="count">18%</td>
+              <td class="interpretation">The model may recognize brand-level cues, but struggle with SKU-level differences such as size, package type, or packaging details.</td>
+            </tr>
+            <tr class="diff-brand">
+              <td>Identified as another product from a different brand</td>
+              <td class="count">90</td>
+              <td class="count">9%</td>
+              <td class="interpretation">Could indicate reliance on broad visual patterns, text, color, or category-level similarities instead of exact product identity.</td>
+            </tr>
+            <tr>
+              <td>Not identified</td>
+              <td class="count">120</td>
+              <td class="count">12%</td>
+              <td class="interpretation">May point to missing catalog coverage, low image quality, or a gap between clean training images and real field conditions.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card conclusions">
+        <h2>Initial Conclusions</h2>
+        <div class="insight"><b>Accuracy is the main issue</b><span>With 39% errors or unresolved cases, the model would create operational noise and reduce product trust.</span></div>
+        <div class="insight"><b>Fine-grained recognition is weak</b><span>The largest error bucket is same-brand confusion, suggesting difficulty distinguishing similar SKUs.</span></div>
+        <div class="insight"><b>Data quality should be investigated</b><span>I would check labeling quality, field image coverage, catalog completeness, and whether training data reflects real conditions.</span></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

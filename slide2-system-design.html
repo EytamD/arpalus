@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 2 - System Design</title>
+<style>
+  :root {
+    --ink: #172033;
+    --muted: #647084;
+    --paper: #fbfaf7;
+    --line: #e5e0d6;
+    --blue: #2457ff;
+    --green: #18a957;
+    --gold: #d88a00;
+    --rose: #e54b63;
+    --violet: #6f4cff;
+    --cyan: #00a6d6;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+  }
+
+  body {
+    color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:
+      linear-gradient(90deg, rgba(36, 87, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(rgba(36, 87, 255, 0.05) 1px, transparent 1px),
+      var(--paper);
+    background-size: 44px 44px;
+    padding: 30px;
+  }
+
+  .slide {
+    width: min(1220px, 100%);
+    min-height: calc(100vh - 60px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 18px;
+  }
+
+  .brand {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .logo {
+    color: #1268f3;
+    font-family: "Segoe UI", Inter, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.07em;
+    line-height: 0.9;
+  }
+
+  .logo .a-dot {
+    position: relative;
+    display: inline-block;
+  }
+
+  .logo .dots {
+    position: absolute;
+    top: -10px;
+    left: 51%;
+    display: flex;
+    gap: 4px;
+    transform: translateX(-50%);
+  }
+
+  .logo .dots i {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .logo .dots i:nth-child(1) {
+    background: #77c843;
+  }
+
+  .logo .dots i:nth-child(2) {
+    background: #ee4657;
+  }
+
+  .logo .dots i:nth-child(3) {
+    background: #1268f3;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 460px;
+    gap: 28px;
+    align-items: center;
+    padding-bottom: 18px;
+    border-bottom: 3px solid var(--ink);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 4px;
+    background: var(--blue);
+    border-radius: 999px;
+  }
+
+  h1 {
+    max-width: 760px;
+    margin: 12px 0 0;
+    font-size: clamp(46px, 6vw, 78px);
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+  }
+
+  .intro {
+    border-left: 5px solid var(--blue);
+    padding: 3px 0 3px 20px;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.45;
+  }
+
+  .intro strong {
+    color: var(--ink);
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 0.78fr 1.22fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  .panel {
+    background: rgba(255, 255, 255, 0.76);
+    border: 2px solid var(--ink);
+    border-radius: 22px;
+    padding: 20px;
+    box-shadow: 7px 7px 0 rgba(23, 32, 51, 0.1);
+  }
+
+  .panel h2,
+  .pipeline h2 {
+    margin: 0 0 14px;
+    font-size: 22px;
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+  }
+
+  .tag {
+    display: inline-flex;
+    margin-bottom: 13px;
+    border-radius: 999px;
+    background: rgba(36, 87, 255, 0.1);
+    color: var(--blue);
+    padding: 5px 10px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .panel p {
+    margin: 0 0 12px;
+    color: #3f4858;
+    font-size: 14px;
+    line-height: 1.42;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: 14px 1fr;
+    gap: 8px;
+    margin-bottom: 9px;
+    color: #3f4858;
+    font-size: 13.5px;
+    line-height: 1.32;
+  }
+
+  li::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    margin-top: 5px;
+    border-radius: 2px;
+    background: var(--blue);
+    transform: rotate(45deg);
+  }
+
+  .panel.data li::before {
+    background: var(--green);
+  }
+
+  .panel.choices li::before {
+    background: var(--violet);
+  }
+
+  .pipeline {
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 26px;
+    padding: 22px;
+    box-shadow: 8px 8px 0 rgba(36, 87, 255, 0.14);
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px 22px;
+  }
+
+  .step {
+    position: relative;
+    min-height: 112px;
+    border: 1px solid var(--line);
+    border-top: 5px solid var(--accent, var(--blue));
+    border-radius: 18px;
+    background: #fbfaf7;
+    padding: 14px 13px;
+  }
+
+  .step::after {
+    content: "->";
+    position: absolute;
+    top: 48px;
+    right: -20px;
+    color: var(--ink);
+    font-weight: 900;
+  }
+
+  .step:nth-child(4)::after,
+  .step:nth-child(8)::after {
+    display: none;
+  }
+
+  .step:nth-child(1) {
+    --accent: var(--blue);
+  }
+
+  .step:nth-child(2) {
+    --accent: var(--cyan);
+  }
+
+  .step:nth-child(3) {
+    --accent: var(--green);
+  }
+
+  .step:nth-child(4) {
+    --accent: var(--gold);
+  }
+
+  .step:nth-child(5) {
+    --accent: var(--violet);
+  }
+
+  .step:nth-child(6) {
+    --accent: var(--rose);
+  }
+
+  .step:nth-child(7) {
+    --accent: var(--blue);
+  }
+
+  .step:nth-child(8) {
+    --accent: var(--green);
+  }
+
+  .step-num {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+  }
+
+  .step-title {
+    margin: 5px 0 7px;
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+  }
+
+  .step-copy {
+    color: var(--muted);
+    font-size: 12.5px;
+    line-height: 1.28;
+  }
+
+  .note {
+    margin-top: 14px;
+    border-left: 4px solid var(--green);
+    padding-left: 13px;
+    color: #3f4858;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .wide {
+    grid-column: 1 / -1;
+  }
+
+  .challenge-bar {
+    background: rgba(255, 255, 255, 0.78);
+    border: 2px solid var(--ink);
+    border-top: 6px solid var(--green);
+    color: var(--ink);
+    border-radius: 22px;
+    padding: 20px 22px;
+    box-shadow: 8px 8px 0 rgba(23, 32, 51, 0.1);
+  }
+
+  .challenge-bar h2 {
+    margin: 0 0 11px;
+    font-size: 21px;
+    letter-spacing: -0.03em;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 7px 10px;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 12.5px;
+    font-weight: 700;
+  }
+
+  .challenge-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .challenge {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: #fff;
+    padding: 14px;
+  }
+
+  .challenge b {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--ink);
+    font-size: 14px;
+  }
+
+  .challenge span {
+    color: #3f4858;
+    font-size: 12.5px;
+    line-height: 1.32;
+  }
+
+  @media (max-width: 1080px) {
+    .hero,
+    .content,
+    .bottom {
+      grid-template-columns: 1fr;
+    }
+
+    .steps,
+    .challenge-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .step:nth-child(even)::after {
+      display: none;
+    }
+
+    .step:nth-child(4)::before {
+      display: none;
+    }
+  }
+
+  @media (max-width: 620px) {
+    body {
+      padding: 18px;
+    }
+
+    .brand {
+      justify-content: flex-start;
+    }
+
+    .steps,
+    .challenge-list {
+      grid-template-columns: 1fr;
+    }
+
+    .step::after {
+      display: none;
+    }
+
+    .step:nth-child(4)::before {
+      display: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="slide">
+    <div class="brand" aria-label="Arpalus branding">
+      <div class="logo">arp<span class="a-dot">a<span class="dots"><i></i><i></i><i></i></span></span>lus</div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Slide 2 - System Design</div>
+        <h1>From Image to Action</h1>
+      </div>
+
+      <div class="intro">
+        <strong>The system should be designed around the business workflow,</strong> not only around the recognition model.
+      </div>
+    </section>
+
+    <section class="content">
+      <aside class="panel">
+        <span class="tag">Discovery &amp; scope</span>
+        <h2>Start With The Use Case</h2>
+        <p>Start with the use case: industry, existing solutions, customer pain, target users, and financial value.</p>
+        <ul>
+          <li>What problem are we solving?</li>
+          <li>Who is the expected customer and user?</li>
+          <li>Where can accurate recognition create business value?</li>
+          <li>Example: OOS, planogram, availability.</li>
+        </ul>
+      </aside>
+
+      <section class="pipeline">
+        <span class="tag">System flow</span>
+        <h2>Production Pipeline</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-title">Capture</div>
+            <div class="step-copy">Image / video source</div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-title">Quality Check</div>
+            <div class="step-copy">Blur, lighting, angle</div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-title">Object Detection</div>
+            <div class="step-copy">Locate product regions</div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-title">Product Recognition</div>
+            <div class="step-copy">Visual product prediction</div>
+          </div>
+          <div class="step">
+            <div class="step-num">05</div>
+            <div class="step-title">Catalog Match</div>
+            <div class="step-copy">Link to SKU record</div>
+          </div>
+          <div class="step">
+            <div class="step-num">06</div>
+            <div class="step-title">Business Rules</div>
+            <div class="step-copy">Planogram / inventory</div>
+          </div>
+          <div class="step">
+            <div class="step-num">07</div>
+            <div class="step-title">Action</div>
+            <div class="step-copy">Alerts, dashboard, tasks</div>
+          </div>
+          <div class="step">
+            <div class="step-num">08</div>
+            <div class="step-title">Closed Loop</div>
+            <div class="step-copy">Validate issue handled</div>
+          </div>
+        </div>
+        <div class="note">Detection finds product regions; recognition identifies the exact SKU.</div>
+      </section>
+    </section>
+
+    <section class="bottom">
+      <div class="panel data">
+        <span class="tag">Data needed</span>
+        <h2>Required Inputs</h2>
+        <ul>
+          <li>Customer context + image / video source.</li>
+          <li>SKU catalog: name, brand, barcode, size, package, category.</li>
+          <li>Clean product images + field images.</li>
+          <li>Similar products, angles, lighting, occlusions, packaging versions.</li>
+          <li>Labels: SKU and product regions.</li>
+          <li>Business data: planogram, inventory, orders, sales.</li>
+        </ul>
+      </div>
+
+      <div class="panel choices">
+        <span class="tag">Build to deploy</span>
+        <h2>Operational Steps</h2>
+        <ul>
+          <li>Define use case -> collect &amp; label data.</li>
+          <li>Choose / adapt model -> fine-tune &amp; test.</li>
+          <li>Add human review for validation and correction.</li>
+          <li>Integrate business systems and deploy MVP.</li>
+          <li>Monitor errors and update data continuously.</li>
+        </ul>
+      </div>
+
+      <div class="challenge-bar wide">
+        <h2>Main Challenges</h2>
+        <div class="challenge-list">
+          <div class="challenge"><b>Similar SKUs</b><span>Small visual differences can cause wrong recognition.</span></div>
+          <div class="challenge"><b>Packaging changes</b><span>Requires fast catalog and image updates.</span></div>
+          <div class="challenge"><b>Image quality</b><span>Lighting, angle, blur, and occlusion affect accuracy.</span></div>
+          <div class="challenge"><b>Data imbalance</b><span>Rare products need extra images and labeling.</span></div>
+          <div class="challenge"><b>Integration &amp; adoption</b><span>Predictions must connect to real workflows and be simple enough for users to trust.</span></div>
+          <div class="challenge"><b>Field data availability</b><span>Remote onboarding may require customer cooperation or local field work to collect enough real product images.</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

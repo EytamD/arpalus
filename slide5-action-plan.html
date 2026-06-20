@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 5 - Action Plan</title>
+<style>
+  :root {
+    --ink: #172033;
+    --muted: #647084;
+    --paper: #fbfaf7;
+    --line: #e5e0d6;
+    --blue: #2457ff;
+    --green: #18a957;
+    --gold: #d88a00;
+    --rose: #e54b63;
+    --violet: #6f4cff;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+
+  body {
+    color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:
+      linear-gradient(90deg, rgba(36, 87, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(rgba(36, 87, 255, 0.05) 1px, transparent 1px),
+      var(--paper);
+    background-size: 44px 44px;
+    padding: 30px;
+  }
+
+  .slide {
+    width: min(1220px, 100%);
+    min-height: calc(100vh - 60px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    gap: 18px;
+  }
+
+  .brand { display: flex; justify-content: flex-end; align-items: center; }
+
+  .logo {
+    color: #1268f3;
+    font-family: "Segoe UI", Inter, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.07em;
+    line-height: 0.9;
+  }
+
+  .logo .a-dot { position: relative; display: inline-block; }
+  .logo .dots {
+    position: absolute;
+    top: -10px;
+    left: 51%;
+    display: flex;
+    gap: 4px;
+    transform: translateX(-50%);
+  }
+  .logo .dots i { display: block; width: 8px; height: 8px; border-radius: 50%; }
+  .logo .dots i:nth-child(1) { background: #77c843; }
+  .logo .dots i:nth-child(2) { background: #ee4657; }
+  .logo .dots i:nth-child(3) { background: #1268f3; }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 460px;
+    gap: 28px;
+    align-items: center;
+    padding-bottom: 18px;
+    border-bottom: 3px solid var(--ink);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 4px;
+    background: var(--blue);
+    border-radius: 999px;
+  }
+
+  h1 {
+    max-width: 780px;
+    margin: 12px 0 0;
+    font-size: clamp(46px, 6vw, 78px);
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+  }
+
+  .intro {
+    border-left: 5px solid var(--blue);
+    padding: 3px 0 3px 20px;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.45;
+  }
+
+  .intro strong { color: var(--ink); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.78);
+    border: 2px solid var(--ink);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 8px 8px 0 rgba(23, 32, 51, 0.1);
+  }
+
+  .primary {
+    border-top: 6px solid var(--blue);
+  }
+
+  .why {
+    border-top: 6px solid var(--gold);
+  }
+
+  .measure {
+    grid-column: 1 / -1;
+    border-top: 6px solid var(--green);
+  }
+
+  h2 {
+    margin: 0 0 14px;
+    font-size: 28px;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+  }
+
+  p {
+    margin: 0 0 14px;
+    color: #3f4858;
+    font-size: 17px;
+    line-height: 1.45;
+  }
+
+  .highlight {
+    display: inline-block;
+    margin: 2px 0 12px;
+    border-radius: 999px;
+    background: rgba(216, 138, 0, 0.13);
+    color: #9b6100;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 900;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    gap: 10px;
+    margin-bottom: 11px;
+    color: #3f4858;
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  li::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    margin-top: 6px;
+    border-radius: 3px;
+    background: var(--blue);
+    transform: rotate(45deg);
+  }
+
+  .why li::before { background: var(--gold); }
+  .measure li::before { background: var(--green); }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .metric {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: #fff;
+    padding: 16px;
+  }
+
+  .metric b {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--ink);
+    font-size: 17px;
+  }
+
+  .metric span {
+    color: #3f4858;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  @media (max-width: 900px) {
+    .hero,
+    .grid,
+    .metrics {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="slide">
+    <div class="brand" aria-label="Arpalus branding">
+      <div class="logo">arp<span class="a-dot">a<span class="dots"><i></i><i></i><i></i></span></span>lus</div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Slide 5</div>
+        <h1>Action Plan</h1>
+      </div>
+
+      <div class="intro">
+        <strong>With budget for one major improvement initiative,</strong> I would focus on the largest error source: same-brand SKU confusion.
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card primary">
+        <h2>What I Would Choose</h2>
+        <p>I would target and re-label the data for visually similar products from the same brand.</p>
+        <ul>
+          <li>Collect more real field images for the confused product pairs.</li>
+          <li>Review and correct labeling quality for those SKUs.</li>
+          <li>Add stronger reference images for each product.</li>
+          <li>Build a focused training set around the products the model confuses.</li>
+        </ul>
+      </div>
+
+      <div class="card why">
+        <h2>Why This Initiative?</h2>
+        <div class="highlight">Same-brand confusion = 18% of all cases / 46% of all errors</div>
+        <p>The model seems to identify the brand, but not distinguish well enough between SKUs inside that brand.</p>
+        <p>This is likely addressable through better labeling, more targeted images, and stronger reference data.</p>
+        <p>Because this is the largest error bucket, solving it should significantly reduce the total error rate.</p>
+      </div>
+
+      <div class="card measure">
+        <h2>How I Would Measure Success</h2>
+        <div class="metrics">
+          <div class="metric"><b>Correctly identified ↑</b><span>Measure an increase in correct SKU-level recognition.</span></div>
+          <div class="metric"><b>Same-brand confusion ↓</b><span>Measure a drop in products identified as another product from the same brand.</span></div>
+          <div class="metric"><b>Confused SKUs ↑</b><span>Measure per-SKU recall on the product pairs that caused most errors.</span></div>
+          <div class="metric"><b>Human review ↓</b><span>Measure fewer cases that require manual validation or correction.</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

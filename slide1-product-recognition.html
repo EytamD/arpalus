@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 1 - Product Recognition</title>
+<style>
+  :root {
+    --ink: #172033;
+    --muted: #647084;
+    --paper: #fbfaf7;
+    --line: #e5e0d6;
+    --blue: #2457ff;
+    --cyan: #00a6d6;
+    --green: #18a957;
+    --gold: #d88a00;
+    --rose: #e54b63;
+    --violet: #6f4cff;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+  }
+
+  body {
+    color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:
+      linear-gradient(90deg, rgba(36, 87, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(rgba(36, 87, 255, 0.05) 1px, transparent 1px),
+      var(--paper);
+    background-size: 44px 44px;
+    padding: 30px;
+  }
+
+  .slide {
+    width: min(1220px, 100%);
+    min-height: calc(100vh - 60px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 18px;
+  }
+
+  .brand {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .logo {
+    color: #1268f3;
+    font-family: "Segoe UI", Inter, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.07em;
+    line-height: 0.9;
+  }
+
+  .logo .a-dot {
+    position: relative;
+    display: inline-block;
+  }
+
+  .logo .dots {
+    position: absolute;
+    top: -10px;
+    left: 51%;
+    display: flex;
+    gap: 4px;
+    transform: translateX(-50%);
+  }
+
+  .logo .dots i {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .logo .dots i:nth-child(1) {
+    background: #77c843;
+  }
+
+  .logo .dots i:nth-child(2) {
+    background: #ee4657;
+  }
+
+  .logo .dots i:nth-child(3) {
+    background: #1268f3;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 460px;
+    gap: 28px;
+    align-items: start;
+    padding-bottom: 18px;
+    border-bottom: 3px solid var(--ink);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 4px;
+    background: var(--blue);
+    border-radius: 999px;
+  }
+
+  h1 {
+    max-width: 760px;
+    margin: 12px 0 0;
+    font-size: clamp(46px, 6vw, 78px);
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+  }
+
+  .definition {
+    border-left: 5px solid var(--blue);
+    margin-left: -96px;
+    padding: 2px 0 2px 20px;
+  }
+
+  .definition p {
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.45;
+  }
+
+  .definition strong {
+    color: var(--ink);
+  }
+
+  .map {
+    display: grid;
+    grid-template-columns: 1.05fr 0.92fr 1.05fr;
+    grid-template-rows: repeat(2, minmax(210px, 1fr));
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  .node {
+    --accent: var(--blue);
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.72);
+    border: 2px solid var(--ink);
+    border-radius: 22px;
+    padding: 22px 22px 20px;
+    box-shadow: 8px 8px 0 rgba(23, 32, 51, 0.1);
+  }
+
+  .node.retail {
+    --accent: var(--blue);
+  }
+
+  .node.cpg {
+    --accent: var(--gold);
+  }
+
+  .node.checkout {
+    --accent: var(--green);
+  }
+
+  .node.ecommerce {
+    --accent: var(--violet);
+  }
+
+  .node.logistics {
+    --accent: var(--rose);
+  }
+
+  .node.checkout {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.86);
+    border-color: var(--green);
+    box-shadow: 10px 10px 0 rgba(24, 169, 87, 0.16);
+  }
+
+  .number {
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .label {
+    margin-bottom: 5px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 16px;
+    color: var(--ink);
+    font-size: 24px;
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+  }
+
+  ul {
+    position: relative;
+    z-index: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    gap: 9px;
+    margin-bottom: 10px;
+    color: #3f4858;
+    font-size: 15px;
+    line-height: 1.32;
+  }
+
+  li::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    margin-top: 5px;
+    border-radius: 3px;
+    background: var(--accent);
+    transform: rotate(45deg);
+  }
+
+  .value {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 22px;
+    align-items: start;
+    border: 2px solid var(--ink);
+    border-radius: 24px;
+    background: #fff;
+    padding: 18px 22px;
+    box-shadow: 8px 8px 0 rgba(23, 32, 51, 0.1);
+  }
+
+  .value-title {
+    font-size: 22px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+  }
+
+  .value-copy {
+    margin: 0 0 12px;
+    color: #3f4858;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .chip {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #f4f1ea;
+    padding: 7px 11px;
+    color: #344054;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .chip:nth-child(3n + 1) {
+    background: rgba(36, 87, 255, 0.1);
+    border-color: rgba(36, 87, 255, 0.2);
+  }
+
+  .chip:nth-child(3n + 2) {
+    background: rgba(24, 169, 87, 0.1);
+    border-color: rgba(24, 169, 87, 0.2);
+  }
+
+  .chip:nth-child(3n) {
+    background: rgba(216, 138, 0, 0.12);
+    border-color: rgba(216, 138, 0, 0.22);
+  }
+
+  @media (max-width: 980px) {
+    .hero,
+    .map,
+    .value {
+      grid-template-columns: 1fr;
+    }
+
+    .node.checkout {
+      grid-column: auto;
+      grid-row: auto;
+    }
+  }
+
+  @media (max-width: 620px) {
+    body {
+      padding: 18px;
+    }
+
+    .brand {
+      justify-content: flex-start;
+    }
+
+    .logo {
+      font-size: 36px;
+    }
+
+    .node {
+      border-radius: 18px;
+      padding: 19px;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="slide">
+    <div class="brand" aria-label="Arpalus branding">
+      <div class="logo">arp<span class="a-dot">a<span class="dots"><i></i><i></i><i></i></span></span>lus</div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Slide 1 - Problem &amp; Business Need</div>
+        <h1>Product Recognition</h1>
+      </div>
+
+      <div class="definition">
+        <p><strong>Product Recognition</strong> is a Computer Vision technology that identifies exact products in images or video, usually at SKU level.</p>
+        <p>As part of a larger system, it replaces manual product checks with scalable, reliable product-level monitoring - helping businesses understand what is present, missing, misplaced, or incorrectly handled.</p>
+      </div>
+    </section>
+
+    <section class="map" aria-label="Product recognition use cases">
+      <article class="node retail">
+        <div class="number">1</div>
+        <div class="label">Retail</div>
+        <h2>Retail &amp; Shelf Management</h2>
+        <ul>
+          <li>Detect OOS and shelf gaps</li>
+          <li>Improve shelf visibility</li>
+          <li>Support planogram compliance</li>
+          <li>Monitor product availability</li>
+        </ul>
+      </article>
+
+      <article class="node checkout">
+        <div class="number">3</div>
+        <div class="label">Checkout</div>
+        <h2>Smart Checkout / Self-Checkout</h2>
+        <ul>
+          <li>Verify the physical item against the scanned item</li>
+          <li>Reduce fraud and checkout errors</li>
+          <li>Improve product validation</li>
+          <li>Reduce shrink and revenue loss</li>
+        </ul>
+      </article>
+
+      <article class="node cpg">
+        <div class="number">2</div>
+        <div class="label">Brands</div>
+        <h2>CPG Brands</h2>
+        <ul>
+          <li>Verify in-store execution</li>
+          <li>Enforce shelf and promotion agreements</li>
+          <li>Measure Share of Shelf</li>
+          <li>Monitor product presence across stores</li>
+        </ul>
+      </article>
+
+      <article class="node ecommerce">
+        <div class="number">4</div>
+        <div class="label">Digital Commerce</div>
+        <h2>E-commerce</h2>
+        <ul>
+          <li>Enable visual search</li>
+          <li>Improve catalog quality</li>
+          <li>Match products across listings</li>
+          <li>Support product discovery</li>
+        </ul>
+      </article>
+
+      <article class="node logistics">
+        <div class="number">5</div>
+        <div class="label">Operations</div>
+        <h2>Logistics / Fulfillment / Robotics</h2>
+        <ul>
+          <li>Validate picked products</li>
+          <li>Reduce picking and sorting errors</li>
+          <li>Support warehouse automation</li>
+          <li>Improve robotic product handling</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="value" aria-label="Business value">
+      <div class="value-title">Business<br>Value</div>
+      <div>
+        <p class="value-copy">High-accuracy product recognition reduces operational noise and makes product-level signals trustworthy enough for real business workflows.</p>
+        <div class="chips">
+          <span class="chip">Higher availability</span>
+          <span class="chip">Reduced OOS</span>
+          <span class="chip">Better shelf visibility</span>
+          <span class="chip">Faster execution</span>
+          <span class="chip">Fewer manual checks</span>
+          <span class="chip">Higher sales</span>
+          <span class="chip">Better customer experience</span>
+          <span class="chip">Reduced revenue leakage</span>
+          <span class="chip">Planogram compliance</span>
+          <span class="chip">Stronger inventory accuracy</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Recognition Deck</title>
+<style>
+  :root {
+    --ink: #172033;
+    --paper: #fbfaf7;
+    --line: #e5e0d6;
+    --blue: #2457ff;
+    --muted: #647084;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    height: 100%;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  .deck-bar {
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 0 24px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(251, 250, 247, 0.92);
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .title b {
+    color: var(--ink);
+  }
+
+  .progress {
+    display: flex;
+    gap: 8px;
+  }
+
+  .dot {
+    width: 42px;
+    height: 6px;
+    border: 0;
+    border-radius: 999px;
+    background: #d9deea;
+    cursor: pointer;
+  }
+
+  .dot.active {
+    background: var(--blue);
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  button {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: 0.38;
+    cursor: default;
+  }
+
+  .count {
+    min-width: 44px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .frame-wrap {
+    height: calc(100vh - 58px);
+    width: 100vw;
+    background: var(--paper);
+  }
+
+  iframe {
+    display: none;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: var(--paper);
+  }
+
+  iframe.active {
+    display: block;
+  }
+</style>
+</head>
+<body>
+  <header class="deck-bar">
+    <div class="title"><b>Product Recognition</b><span>Home Assignment Deck</span></div>
+    <div class="progress" aria-label="Slide navigation">
+      <button class="dot active" data-slide="0" aria-label="Slide 1"></button>
+      <button class="dot" data-slide="1" aria-label="Slide 2"></button>
+      <button class="dot" data-slide="2" aria-label="Slide 3"></button>
+      <button class="dot" data-slide="3" aria-label="Slide 4"></button>
+      <button class="dot" data-slide="4" aria-label="Slide 5"></button>
+    </div>
+    <div class="controls">
+      <button id="prev" disabled>Prev</button>
+      <div class="count"><span id="current">1</span> / 5</div>
+      <button id="next">Next</button>
+    </div>
+  </header>
+
+  <main class="frame-wrap">
+    <iframe class="active" src="slide1-product-recognition.html" title="Slide 1 - Product Recognition"></iframe>
+    <iframe src="slide2-system-design.html" title="Slide 2 - System Design"></iframe>
+    <iframe src="slide3-real-business-scenario.html" title="Slide 3 - Real Business Scenario"></iframe>
+    <iframe src="slide4-additional-information.html" title="Slide 4 - Additional Information"></iframe>
+    <iframe src="slide5-action-plan.html" title="Slide 5 - Action Plan"></iframe>
+  </main>
+
+<script>
+  const frames = [...document.querySelectorAll("iframe")];
+  const dots = [...document.querySelectorAll(".dot")];
+  const prev = document.getElementById("prev");
+  const next = document.getElementById("next");
+  const current = document.getElementById("current");
+  let index = 0;
+
+  function showSlide(nextIndex) {
+    index = Math.max(0, Math.min(frames.length - 1, nextIndex));
+    frames.forEach((frame, i) => frame.classList.toggle("active", i === index));
+    dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+    current.textContent = String(index + 1);
+    prev.disabled = index === 0;
+    next.disabled = index === frames.length - 1;
+    try {
+      frames[index].contentWindow.scrollTo(0, 0);
+    } catch (error) {
+      /* Local file iframes should allow this; ignore if the browser blocks it. */
+    }
+  }
+
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => showSlide(Number(dot.dataset.slide)));
+  });
+
+  frames.forEach((frame) => {
+    frame.addEventListener("load", () => {
+      try {
+        frame.contentWindow.scrollTo(0, 0);
+      } catch (error) {
+        /* Local file iframes should allow this; ignore if the browser blocks it. */
+      }
+    });
+  });
+
+  prev.addEventListener("click", () => showSlide(index - 1));
+  next.addEventListener("click", () => showSlide(index + 1));
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") showSlide(index + 1);
+    if (event.key === "ArrowLeft") showSlide(index - 1);
+  });
+</script>
+</body>
+</html>
