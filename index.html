@@ -54,6 +54,48 @@
     color: var(--ink);
   }
 
+  .logo {
+    color: #1268f3;
+    font-family: "Segoe UI", Inter, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.07em;
+    line-height: 0.9;
+  }
+
+  .logo .a-dot {
+    position: relative;
+    display: inline-block;
+  }
+
+  .logo .dots {
+    position: absolute;
+    top: -8px;
+    left: 51%;
+    display: flex;
+    gap: 3px;
+    transform: translateX(-50%);
+  }
+
+  .logo .dots i {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .logo .dots i:nth-child(1) {
+    background: #77c843;
+  }
+
+  .logo .dots i:nth-child(2) {
+    background: #ee4657;
+  }
+
+  .logo .dots i:nth-child(3) {
+    background: #1268f3;
+  }
+
   .progress {
     display: flex;
     gap: 8px;
@@ -123,7 +165,10 @@
 </head>
 <body>
   <header class="deck-bar">
-    <div class="title"><b>Product Recognition</b><span>Home Assignment Deck</span></div>
+    <div class="title">
+      <div class="logo">arp<span class="a-dot">a<span class="dots"><i></i><i></i><i></i></span></span>lus</div>
+      <b>Product Recognition</b><span>Home Assignment Deck</span>
+    </div>
     <div class="progress" aria-label="Slide navigation">
       <button class="dot active" data-slide="0" aria-label="Slide 1"></button>
       <button class="dot" data-slide="1" aria-label="Slide 2"></button>
