@@ -151,8 +151,8 @@
 
   .map {
     display: grid;
-    grid-template-columns: 1.05fr 0.92fr 1.05fr;
-    grid-template-rows: repeat(2, minmax(210px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto;
     gap: 18px;
     align-items: stretch;
   }
@@ -188,12 +188,12 @@
     --accent: var(--rose);
   }
 
+  .value {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
   .node.checkout {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     background: rgba(255, 255, 255, 0.86);
     border-color: var(--green);
     box-shadow: 10px 10px 0 rgba(24, 169, 87, 0.16);
@@ -259,20 +259,18 @@
   }
 
   .value {
-    display: grid;
-    grid-template-columns: 190px 1fr;
-    gap: 22px;
-    align-items: start;
+    display: block;
     border: 2px solid var(--ink);
     border-radius: 24px;
     background: #fff;
-    padding: 18px 22px;
+    padding: 22px;
     box-shadow: 8px 8px 0 rgba(23, 32, 51, 0.1);
   }
 
   .value-title {
+    margin-bottom: 12px;
     font-size: 22px;
-    line-height: 1;
+    line-height: 1.05;
     font-weight: 900;
     letter-spacing: -0.04em;
   }
@@ -284,7 +282,7 @@
   }
 
   .value-copy {
-    margin: 0 0 12px;
+    margin: 0;
     color: #3f4858;
     font-size: 15px;
     font-weight: 700;
@@ -319,15 +317,15 @@
 
   @media (max-width: 980px) {
     .hero,
-    .map,
-    .value {
+    .map {
       grid-template-columns: 1fr;
     }
 
-    .node.checkout {
+    .value {
       grid-column: auto;
       grid-row: auto;
     }
+
   }
 
   @media (max-width: 620px) {
@@ -428,25 +426,11 @@
           <li>Improve robotic product handling</li>
         </ul>
       </article>
-    </section>
 
-    <section class="value" aria-label="Business value">
-      <div class="value-title">Business<br>Value</div>
-      <div>
-        <p class="value-copy">High-accuracy product recognition reduces operational noise and makes product-level signals trustworthy enough for real business workflows.</p>
-        <div class="chips">
-          <span class="chip">Higher availability</span>
-          <span class="chip">Reduced OOS</span>
-          <span class="chip">Better shelf visibility</span>
-          <span class="chip">Faster execution</span>
-          <span class="chip">Fewer manual checks</span>
-          <span class="chip">Higher sales</span>
-          <span class="chip">Better customer experience</span>
-          <span class="chip">Reduced revenue leakage</span>
-          <span class="chip">Planogram compliance</span>
-          <span class="chip">Stronger inventory accuracy</span>
-        </div>
-      </div>
+      <article class="value" aria-label="Business value">
+        <div class="value-title">Business Value</div>
+        <p class="value-copy">Accurate product recognition reduces manual work, improves operational accuracy, and enables faster decisions across business workflows.</p>
+      </article>
     </section>
   </main>
 </body>

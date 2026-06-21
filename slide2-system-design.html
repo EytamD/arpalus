@@ -146,30 +146,34 @@
 
   .content {
     display: grid;
-    grid-template-columns: 0.78fr 1.22fr;
-    gap: 18px;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
     align-items: stretch;
+  }
+
+  .pipeline {
+    grid-column: 1 / -1;
   }
 
   .panel {
     background: rgba(255, 255, 255, 0.76);
     border: 2px solid var(--ink);
-    border-radius: 22px;
-    padding: 20px;
+    border-radius: 18px;
+    padding: 14px 16px;
     box-shadow: 7px 7px 0 rgba(23, 32, 51, 0.1);
   }
 
   .panel h2,
   .pipeline h2 {
-    margin: 0 0 14px;
-    font-size: 22px;
+    margin: 0 0 10px;
+    font-size: 20px;
     line-height: 1.04;
     letter-spacing: -0.035em;
   }
 
   .tag {
     display: inline-flex;
-    margin-bottom: 13px;
+    margin-bottom: 8px;
     border-radius: 999px;
     background: rgba(36, 87, 255, 0.1);
     color: var(--blue);
@@ -181,7 +185,7 @@
   }
 
   .panel p {
-    margin: 0 0 12px;
+    margin: 0 0 8px;
     color: #3f4858;
     font-size: 14px;
     line-height: 1.42;
@@ -197,7 +201,7 @@
     display: grid;
     grid-template-columns: 14px 1fr;
     gap: 8px;
-    margin-bottom: 9px;
+    margin-bottom: 6px;
     color: #3f4858;
     font-size: 13.5px;
     line-height: 1.32;
@@ -224,37 +228,40 @@
   .pipeline {
     background: #fff;
     border: 2px solid var(--ink);
-    border-radius: 26px;
-    padding: 22px;
+    border-radius: 20px;
+    padding: 14px 16px;
     box-shadow: 8px 8px 0 rgba(36, 87, 255, 0.14);
   }
 
   .steps {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 14px 22px;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 8px;
   }
 
   .step {
     position: relative;
-    min-height: 112px;
+    min-height: 86px;
     border: 1px solid var(--line);
     border-top: 5px solid var(--accent, var(--blue));
-    border-radius: 18px;
+    border-radius: 14px;
     background: #fbfaf7;
-    padding: 14px 13px;
+    padding: 10px 9px;
   }
 
   .step::after {
-    content: "->";
+    content: "";
     position: absolute;
-    top: 48px;
-    right: -20px;
+    top: 36px;
+    right: -7px;
+    width: 10px;
+    height: 10px;
+    border-top: 3px solid var(--ink);
+    border-right: 3px solid var(--ink);
+    transform: rotate(45deg);
     color: var(--ink);
-    font-weight: 900;
   }
 
-  .step:nth-child(4)::after,
   .step:nth-child(8)::after {
     display: none;
   }
@@ -301,7 +308,7 @@
   .step-title {
     margin: 5px 0 7px;
     color: var(--ink);
-    font-size: 15px;
+    font-size: 12.5px;
     font-weight: 900;
     line-height: 1.04;
     letter-spacing: -0.02em;
@@ -309,27 +316,23 @@
 
   .step-copy {
     color: var(--muted);
-    font-size: 12.5px;
+    font-size: 11px;
     line-height: 1.28;
   }
 
   .note {
-    margin-top: 14px;
+    margin-top: 10px;
     border-left: 4px solid var(--green);
     padding-left: 13px;
     color: #3f4858;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.4;
   }
 
   .bottom {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 18px;
-  }
-
-  .wide {
-    grid-column: 1 / -1;
+    gap: 12px;
   }
 
   .challenge-bar {
@@ -337,14 +340,14 @@
     border: 2px solid var(--ink);
     border-top: 6px solid var(--green);
     color: var(--ink);
-    border-radius: 22px;
-    padding: 20px 22px;
+    border-radius: 18px;
+    padding: 14px 16px;
     box-shadow: 8px 8px 0 rgba(23, 32, 51, 0.1);
   }
 
   .challenge-bar h2 {
-    margin: 0 0 11px;
-    font-size: 21px;
+    margin: 0 0 10px;
+    font-size: 20px;
     letter-spacing: -0.03em;
   }
 
@@ -365,29 +368,27 @@
   }
 
   .challenge-list {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .challenge {
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    background: #fff;
-    padding: 14px;
+    border: 1px solid rgba(36, 87, 255, 0.16);
+    border-radius: 999px;
+    background: rgba(36, 87, 255, 0.08);
+    padding: 7px 10px;
   }
 
   .challenge b {
-    display: block;
-    margin-bottom: 5px;
+    display: inline;
+    margin-bottom: 0;
     color: var(--ink);
-    font-size: 14px;
+    font-size: 12.5px;
   }
 
   .challenge span {
-    color: #3f4858;
-    font-size: 12.5px;
-    line-height: 1.32;
+    display: none;
   }
 
   @media (max-width: 1080px) {
@@ -465,6 +466,19 @@
         </ul>
       </aside>
 
+      <div class="panel data">
+        <span class="tag">Data needed</span>
+        <h2>Required Inputs</h2>
+        <ul>
+          <li>Customer context + image / video source.</li>
+          <li>SKU catalog: name, brand, barcode, size, package, category.</li>
+          <li>Clean product images + field images.</li>
+          <li>Similar products, angles, lighting, occlusions, packaging versions.</li>
+          <li>Labels: SKU and product regions.</li>
+          <li>Business data: planogram, inventory, orders, sales.</li>
+        </ul>
+      </div>
+
       <section class="pipeline">
         <span class="tag">System flow</span>
         <h2>Production Pipeline</h2>
@@ -515,19 +529,6 @@
     </section>
 
     <section class="bottom">
-      <div class="panel data">
-        <span class="tag">Data needed</span>
-        <h2>Required Inputs</h2>
-        <ul>
-          <li>Customer context + image / video source.</li>
-          <li>SKU catalog: name, brand, barcode, size, package, category.</li>
-          <li>Clean product images + field images.</li>
-          <li>Similar products, angles, lighting, occlusions, packaging versions.</li>
-          <li>Labels: SKU and product regions.</li>
-          <li>Business data: planogram, inventory, orders, sales.</li>
-        </ul>
-      </div>
-
       <div class="panel choices">
         <span class="tag">Build to deploy</span>
         <h2>Operational Steps</h2>
@@ -540,7 +541,7 @@
         </ul>
       </div>
 
-      <div class="challenge-bar wide">
+      <div class="challenge-bar">
         <h2>Main Challenges</h2>
         <div class="challenge-list">
           <div class="challenge"><b>Similar SKUs</b><span>Small visual differences can cause wrong recognition.</span></div>
