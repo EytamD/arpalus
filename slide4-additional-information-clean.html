@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 4 - Additional Information</title>
+<style>
+  :root {
+    --ink: #141a26;
+    --muted: #5c6573;
+    --faint: #94a0b3;
+    --line: #e9ecf2;
+    --txt: #3c4556;
+    --blue: #2457ff;
+    --gold: #e08a00;
+    --green: #14a85a;
+    --violet: #7a4dff;
+    --rose: #e5476b;
+    --cyan: #009ec7;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+
+  body {
+    color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:
+      radial-gradient(900px 500px at 88% -8%, rgba(36, 87, 255, 0.10), transparent 60%),
+      radial-gradient(700px 500px at -5% 110%, rgba(122, 77, 255, 0.08), transparent 55%),
+      #f7f8fb;
+    padding: 48px 40px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .slide {
+    width: min(1140px, 100%);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* ---- hero ---- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 40px;
+    align-items: end;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--blue);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .eyebrow::before { content: ""; width: 26px; height: 3px; background: var(--blue); border-radius: 999px; }
+  h1 {
+    margin: 16px 0 0;
+    font-size: clamp(40px, 5vw, 60px);
+    line-height: 0.98; letter-spacing: -0.045em; font-weight: 800;
+  }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--blue), var(--violet));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .lead {
+    margin: 0; padding: 16px 0 6px 20px;
+    border-left: 3px solid var(--blue);
+    color: var(--muted); font-size: 17px; line-height: 1.5;
+  }
+  .lead strong { color: var(--ink); font-weight: 600; }
+
+  /* ---- info grid ---- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .info {
+    --ac: var(--blue);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 1px 2px rgba(20, 26, 38, 0.04), 0 12px 28px rgba(20, 26, 38, 0.05);
+  }
+  .info .n {
+    display: inline-grid; place-items: center;
+    width: 30px; height: 30px; border-radius: 9px;
+    background: color-mix(in srgb, var(--ac) 12%, #fff);
+    color: var(--ac);
+    font-size: 14px; font-weight: 800;
+    margin-bottom: 14px;
+  }
+  .info h2 { margin: 0 0 8px; font-size: 17px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; }
+  .info p { margin: 0; font-size: 14.5px; line-height: 1.42; color: var(--txt); }
+
+  .info:nth-child(1) { --ac: var(--blue); }
+  .info:nth-child(2) { --ac: var(--green); }
+  .info:nth-child(3) { --ac: var(--gold); }
+  .info:nth-child(4) { --ac: var(--rose); }
+  .info:nth-child(5) { --ac: var(--violet); }
+  .info:nth-child(6) { --ac: var(--cyan); }
+  .info:nth-child(7) { --ac: var(--blue); }
+
+  /* span the 7th card across remaining width nicely */
+  .grid .info:nth-child(7) { grid-column: span 1; }
+
+  @media (max-width: 980px) {
+    body { padding: 32px 20px; }
+    .hero { grid-template-columns: 1fr; gap: 20px; align-items: start; }
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <main class="slide">
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Slide 4 — Diagnosis</div>
+        <h1>Additional <em>Information</em></h1>
+      </div>
+      <p class="lead">
+        <strong>Before deciding on next steps,</strong> I would request more information to
+        understand whether errors come from data, labels, model behavior, or real-world conditions.
+      </p>
+    </section>
+
+    <section class="grid">
+      <article class="info">
+        <span class="n">1</span>
+        <h2>Product Images</h2>
+        <p>Check if products are visually distinct or generic with similar packaging and limited visual cues.</p>
+      </article>
+      <article class="info">
+        <span class="n">2</span>
+        <h2>Confusion Matrix</h2>
+        <p>See exactly which SKUs are confused, and whether errors concentrate in specific product pairs.</p>
+      </article>
+      <article class="info">
+        <span class="n">3</span>
+        <h2>Labeling Review</h2>
+        <p>Verify training images were labeled correctly. Inconsistent SKU labels cause systematic errors.</p>
+      </article>
+      <article class="info">
+        <span class="n">4</span>
+        <h2>Not-Identified Breakdown</h2>
+        <p>Is it poor image quality, missing catalog items, low confidence, or detection failure?</p>
+      </article>
+      <article class="info">
+        <span class="n">5</span>
+        <h2>Store Environment</h2>
+        <p>Check whether lighting, angle, blur, occlusion, or crowded shelves affected results.</p>
+      </article>
+      <article class="info">
+        <span class="n">6</span>
+        <h2>Confidence Scores</h2>
+        <p>Did mistakes happen with high or low confidence? Decide when manual review is needed.</p>
+      </article>
+      <article class="info">
+        <span class="n">7</span>
+        <h2>Training Data per SKU</h2>
+        <p>How many images exist per SKU, and are rare products under-represented vs. popular ones?</p>
+      </article>
+    </section>
+
+  </main>
+</body>
+</html>

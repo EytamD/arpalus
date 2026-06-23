@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 2 - System Design</title>
+<style>
+  :root {
+    --ink: #141a26;
+    --muted: #5c6573;
+    --faint: #94a0b3;
+    --line: #e9ecf2;
+    --txt: #3c4556;
+    --blue: #2457ff;
+    --gold: #e08a00;
+    --green: #14a85a;
+    --violet: #7a4dff;
+    --rose: #e5476b;
+    --cyan: #009ec7;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+
+  body {
+    color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:
+      radial-gradient(900px 500px at 88% -8%, rgba(36, 87, 255, 0.10), transparent 60%),
+      radial-gradient(700px 500px at -5% 110%, rgba(122, 77, 255, 0.08), transparent 55%),
+      #f7f8fb;
+    padding: 28px 34px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .slide {
+    width: min(1140px, 100%);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  /* ---- shared hero ---- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 30px;
+    align-items: end;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--blue);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .eyebrow::before { content: ""; width: 26px; height: 3px; background: var(--blue); border-radius: 999px; }
+  h1 {
+    margin: 10px 0 0;
+    font-size: clamp(40px, 5vw, 60px);
+    line-height: 0.98; letter-spacing: -0.045em; font-weight: 800;
+  }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--blue), var(--violet));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .lead {
+    margin: 0; padding: 10px 0 4px 18px;
+    border-left: 3px solid var(--blue);
+    color: var(--muted); font-size: 16.5px; line-height: 1.42;
+  }
+  .lead strong { color: var(--ink); font-weight: 600; }
+
+  /* ---- cards ---- */
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 2px rgba(20, 26, 38, 0.04), 0 12px 28px rgba(20, 26, 38, 0.05);
+  }
+  .tag {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ac, var(--blue));
+  }
+  .tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ac, var(--blue)); }
+  .card h2 {
+    margin: 9px 0 8px;
+    font-size: 20px; font-weight: 700; letter-spacing: -0.02em;
+  }
+  .card p { margin: 0 0 8px; color: var(--txt); font-size: 15px; line-height: 1.42; }
+
+  ul.list { list-style: none; margin: 0; padding: 0; }
+  ul.list li {
+    position: relative; padding-left: 18px; margin-bottom: 5px;
+    font-size: 14.5px; line-height: 1.35; color: var(--txt);
+  }
+  ul.list li:last-child { margin-bottom: 0; }
+  ul.list li::before {
+    content: ""; position: absolute; left: 0; top: 7px;
+    width: 7px; height: 7px; border-radius: 2px;
+    background: var(--ac, var(--blue)); transform: rotate(45deg);
+  }
+  ul.list li strong { color: var(--ink); font-weight: 600; }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  /* ---- pipeline ---- */
+  .pipe-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 4px; }
+  .steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px;
+  }
+  .step {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #fcfcfe;
+    padding: 10px 12px;
+  }
+  .step .n {
+    display: inline-grid; place-items: center;
+    width: 26px; height: 26px; border-radius: 8px;
+    background: var(--ac); color: #fff;
+    font-size: 13px; font-weight: 800;
+    margin-bottom: 7px;
+  }
+  .step h3 { margin: 0 0 3px; font-size: 14.5px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.12; }
+  .step p { margin: 0; font-size: 13px; line-height: 1.28; color: var(--muted); }
+  .step:nth-child(1) { --ac: var(--blue); }
+  .step:nth-child(2) { --ac: var(--cyan); }
+  .step:nth-child(3) { --ac: var(--green); }
+  .step:nth-child(4) { --ac: var(--gold); }
+  .step:nth-child(5) { --ac: var(--violet); }
+  .step:nth-child(6) { --ac: var(--rose); }
+  .step:nth-child(7) { --ac: var(--blue); }
+  .step:nth-child(8) { --ac: var(--green); }
+
+  /* ---- challenges ---- */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips span {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fafbfd;
+    padding: 6px 11px;
+    font-size: 13.5px; font-weight: 600; color: #3a4350;
+  }
+
+  @media (max-width: 920px) {
+    body { padding: 32px 20px; }
+    .hero { grid-template-columns: 1fr; gap: 20px; align-items: start; }
+    .two { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+  <main class="slide">
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Slide 2 — System Design</div>
+        <h1>From Image to <em>Action</em></h1>
+      </div>
+      <p class="lead">
+        <strong>The system should be designed around the business workflow,</strong>
+        not only around the recognition model.
+      </p>
+    </section>
+
+    <section class="two">
+      <div class="card" style="--ac: var(--blue);">
+        <span class="tag">Discovery &amp; Scope</span>
+        <h2>Start With The Use Case</h2>
+        <p>Define the industry, existing solutions, customer pain, target users, and financial value.</p>
+        <ul class="list">
+          <li>What problem are we solving?</li>
+          <li>Who is the expected customer and user?</li>
+          <li>Where can accurate recognition create business value?</li>
+          <li>Example: OOS, planogram, availability.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="--ac: var(--green);">
+        <span class="tag">Data Needed</span>
+        <h2>Required Inputs</h2>
+        <ul class="list">
+          <li><strong>Visual data —</strong> product &amp; field images, angles, lighting, occlusion, packaging versions.</li>
+          <li><strong>Product data —</strong> SKU, name, brand, barcode, size, package, category.</li>
+          <li><strong>Training / validation —</strong> marked product locations, verified SKU labels, similar-product examples.</li>
+          <li><strong>Business data —</strong> planogram, inventory, prices, promotions.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="--ac: var(--violet);">
+      <div class="pipe-head">
+        <span class="tag">System Flow</span>
+      </div>
+      <h2 style="margin-top:8px;">Production Pipeline</h2>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><h3>Capture</h3><p>Image / video source</p></div>
+        <div class="step"><span class="n">02</span><h3>Quality Check</h3><p>Blur, lighting, angle</p></div>
+        <div class="step"><span class="n">03</span><h3>Object Detection</h3><p>Locate product regions</p></div>
+        <div class="step"><span class="n">04</span><h3>Product Recognition</h3><p>Identify exact SKU</p></div>
+        <div class="step"><span class="n">05</span><h3>Catalog Match</h3><p>Match prediction to catalog</p></div>
+        <div class="step"><span class="n">06</span><h3>Business Rules</h3><p>Planogram / inventory</p></div>
+        <div class="step"><span class="n">07</span><h3>Action</h3><p>Alerts, dashboard, tasks</p></div>
+        <div class="step"><span class="n">08</span><h3>Closed Loop</h3><p>Validate issue handled</p></div>
+      </div>
+    </section>
+
+    <section class="two">
+      <div class="card" style="--ac: var(--violet);">
+        <span class="tag">Build to Deploy</span>
+        <h2>Operational Steps</h2>
+        <ul class="list">
+          <li>Define use case → collect &amp; label data.</li>
+          <li>Choose / adapt model → fine-tune &amp; test.</li>
+          <li>Add human review for validation and correction.</li>
+          <li>Integrate business systems and deploy MVP.</li>
+          <li>Monitor errors and update data continuously.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="--ac: var(--rose);">
+        <span class="tag">Risk Areas</span>
+        <h2>Main Challenges</h2>
+        <div class="chips">
+          <span>Similar SKUs</span>
+          <span>Packaging changes</span>
+          <span>Image quality</span>
+          <span>Labeling bottleneck</span>
+          <span>Integration &amp; adoption</span>
+          <span>Field data availability</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

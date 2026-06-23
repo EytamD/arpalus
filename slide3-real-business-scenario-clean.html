@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 3 - Real Business Scenario</title>
+<style>
+  :root {
+    --ink: #141a26;
+    --muted: #5c6573;
+    --faint: #94a0b3;
+    --line: #e9ecf2;
+    --line-soft: #f3f1ec;
+    --txt: #3c4556;
+    --blue: #2457ff;
+    --gold: #e08a00;
+    --green: #14a85a;
+    --violet: #7a4dff;
+    --rose: #e5476b;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+
+  body {
+    color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:
+      radial-gradient(900px 500px at 88% -8%, rgba(36, 87, 255, 0.10), transparent 60%),
+      radial-gradient(700px 500px at -5% 110%, rgba(122, 77, 255, 0.08), transparent 55%),
+      #f7f8fb;
+    padding: 48px 40px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .slide {
+    width: min(1140px, 100%);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* ---- hero ---- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 40px;
+    align-items: end;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--blue);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .eyebrow::before { content: ""; width: 26px; height: 3px; background: var(--blue); border-radius: 999px; }
+  h1 {
+    margin: 16px 0 0;
+    font-size: clamp(38px, 4.8vw, 58px);
+    line-height: 0.98; letter-spacing: -0.045em; font-weight: 800;
+  }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--blue), var(--violet));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .lead {
+    margin: 0; padding: 16px 0 6px 20px;
+    border-left: 3px solid var(--blue);
+    color: var(--muted); font-size: 17px; line-height: 1.5;
+  }
+  .lead strong { color: var(--ink); font-weight: 600; }
+
+  /* ---- card ---- */
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 1px 2px rgba(20, 26, 38, 0.04), 0 14px 32px rgba(20, 26, 38, 0.06);
+  }
+  .tag {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--blue);
+  }
+  .tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+  .card h2 { margin: 12px 0 16px; font-size: 21px; font-weight: 700; letter-spacing: -0.025em; }
+
+  /* ---- results table ---- */
+  .res { display: flex; flex-direction: column; }
+  .res-row {
+    display: grid;
+    grid-template-columns: 1.6fr 90px 80px 2.4fr;
+    gap: 20px;
+    align-items: center;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .res-row.head {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .res-row.head span {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--faint);
+  }
+  .outcome { display: flex; align-items: center; gap: 11px; font-size: 16px; font-weight: 600; line-height: 1.25; }
+  .outcome .dot { flex: 0 0 auto; width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--faint)); }
+  .count { font-size: 26px; font-weight: 800; color: var(--c, var(--ink)); font-variant-numeric: tabular-nums; }
+  .share { font-size: 15px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .interp { font-size: 14.5px; line-height: 1.42; color: var(--txt); }
+
+  .correct    { --c: var(--green); }
+  .same-brand { --c: var(--gold); }
+  .diff-brand { --c: var(--rose); }
+  .not-id     { --c: var(--faint); }
+
+  /* ---- conclusions ---- */
+  .concl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .insight {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 2px rgba(20, 26, 38, 0.04), 0 10px 24px rgba(20, 26, 38, 0.05);
+  }
+  .insight::before {
+    content: ""; display: block;
+    width: 28px; height: 4px; border-radius: 999px;
+    background: var(--ic, var(--blue)); margin-bottom: 12px;
+  }
+  .insight:nth-child(1) { --ic: var(--rose); }
+  .insight:nth-child(2) { --ic: var(--gold); }
+  .insight:nth-child(3) { --ic: var(--blue); }
+  .insight b { display: block; margin-bottom: 6px; font-size: 16px; font-weight: 700; color: var(--ink); }
+  .insight span { font-size: 14px; line-height: 1.42; color: var(--txt); }
+
+  @media (max-width: 900px) {
+    body { padding: 32px 20px; }
+    .hero { grid-template-columns: 1fr; gap: 20px; align-items: start; }
+    .res-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .res-row.head { display: none; }
+    .interp { grid-column: 1 / -1; }
+    .concl { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <main class="slide">
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Part 2 — Analysis</div>
+        <h1>A Real Business <em>Scenario</em></h1>
+      </div>
+      <p class="lead">
+        <strong>A product recognition model</strong> was recently trained on a new product
+        category. The following results were observed.
+      </p>
+    </section>
+
+    <section class="card">
+      <span class="tag">Observed Results</span>
+      <h2>1,000 predictions — how did the model do?</h2>
+      <div class="res">
+        <div class="res-row head">
+          <span>Outcome</span><span>Count</span><span>Share</span><span>Interpretation</span>
+        </div>
+        <div class="res-row correct">
+          <div class="outcome"><span class="dot"></span>Correctly identified</div>
+          <div class="count">610</div>
+          <div class="share">61%</div>
+          <div class="interp">Not reliable enough for a production workflow; too many cases still create errors or uncertainty.</div>
+        </div>
+        <div class="res-row same-brand">
+          <div class="outcome"><span class="dot"></span>Same brand, wrong product</div>
+          <div class="count">180</div>
+          <div class="share">18%</div>
+          <div class="interp">Recognizes brand-level cues, but struggles with SKU-level differences such as size, package type, or packaging details.</div>
+        </div>
+        <div class="res-row diff-brand">
+          <div class="outcome"><span class="dot"></span>Different brand, wrong product</div>
+          <div class="count">90</div>
+          <div class="share">9%</div>
+          <div class="interp">May rely on broad visual patterns — text, color, category similarity — instead of exact product identity.</div>
+        </div>
+        <div class="res-row not-id">
+          <div class="outcome"><span class="dot"></span>Not identified</div>
+          <div class="count">120</div>
+          <div class="share">12%</div>
+          <div class="interp">Points to missing catalog coverage, low image quality, or a gap between clean training images and real field conditions.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag" style="margin-bottom:14px;">Initial Conclusions</span>
+      <div class="concl">
+        <div class="insight"><b>Accuracy is the main issue</b><span>With 39% errors or unresolved cases, the model would create operational noise and reduce trust.</span></div>
+        <div class="insight"><b>Fine-grained recognition is weak</b><span>The largest error bucket is same-brand confusion, suggesting difficulty telling similar SKUs apart.</span></div>
+        <div class="insight"><b>Data quality should be investigated</b><span>I'd check labeling quality, field image coverage, catalog completeness, and whether training data reflects real conditions.</span></div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 1 - Product Recognition</title>
+<style>
+  :root {
+    --ink: #141a26;
+    --muted: #5c6573;
+    --faint: #94a0b3;
+    --line: #e9ecf2;
+    --blue: #2457ff;
+    --gold: #e08a00;
+    --green: #14a85a;
+    --violet: #7a4dff;
+    --rose: #e5476b;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+
+  body {
+    color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:
+      radial-gradient(900px 500px at 88% -8%, rgba(36, 87, 255, 0.10), transparent 60%),
+      radial-gradient(700px 500px at -5% 110%, rgba(122, 77, 255, 0.08), transparent 55%),
+      #f7f8fb;
+    padding: 28px 34px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .slide {
+    width: min(1140px, 100%);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 30px;
+    align-items: end;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 26px; height: 3px;
+    background: var(--blue);
+    border-radius: 999px;
+  }
+
+  h1 {
+    margin: 10px 0 0;
+    font-size: clamp(42px, 5.4vw, 66px);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    font-weight: 800;
+  }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--blue), var(--violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .lead {
+    margin: 0;
+    padding: 10px 0 4px 18px;
+    border-left: 3px solid var(--blue);
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 1.42;
+  }
+  .lead strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Problem / Solution ---------- */
+  .ps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .ps-card {
+    position: relative;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 14px 18px;
+    box-shadow: 0 1px 2px rgba(20, 26, 38, 0.04), 0 12px 28px rgba(20, 26, 38, 0.05);
+  }
+  .ps-card::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 16px; bottom: 16px;
+    width: 4px;
+    border-radius: 0 4px 4px 0;
+    background: var(--rose);
+  }
+  .ps-card.solution::before { background: var(--green); }
+
+  .ps-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rose);
+  }
+  .ps-card.solution .ps-label { color: var(--green); }
+  .ps-label .ic {
+    width: 22px; height: 22px;
+    display: grid; place-items: center;
+    border-radius: 7px;
+    background: rgba(229, 71, 107, 0.12);
+    font-size: 13px;
+  }
+  .ps-card.solution .ps-label .ic { background: rgba(20, 168, 90, 0.12); }
+
+  .ps-card p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.42;
+    color: #3c4556;
+  }
+
+  /* ---------- Use cases ---------- */
+  .panel {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 6px 20px 10px;
+    box-shadow: 0 1px 2px rgba(20, 26, 38, 0.04), 0 16px 36px rgba(20, 26, 38, 0.06);
+  }
+
+  .panel-head {
+    display: grid;
+    grid-template-columns: 230px 1fr 1fr 1fr;
+    gap: 22px;
+    align-items: center;
+    padding: 12px 0 10px;
+  }
+  .panel-head h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .panel-head .col-tags {
+    display: contents;
+  }
+  .panel-head .col-tags span {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 230px 1fr 1fr 1fr;
+    gap: 22px;
+    padding: 11px 0;
+    border-top: 1px solid var(--line);
+    align-items: start;
+  }
+
+  .biz {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+  }
+  .biz .chip {
+    flex: 0 0 auto;
+    width: 9px; height: 9px;
+    margin-top: 6px;
+    border-radius: 50%;
+    background: var(--c);
+  }
+  .biz .name {
+    font-size: 16.5px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .biz .name small {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .cell {
+    font-size: 15px;
+    line-height: 1.36;
+    color: #4a5260;
+  }
+  .cell b {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .row.retail   { --c: var(--blue); }
+  .row.cpg      { --c: var(--gold); }
+  .row.checkout { --c: var(--green); }
+  .row.ecommerce{ --c: var(--violet); }
+  .row.logistics{ --c: var(--rose); }
+
+  /* ---------- Value ---------- */
+  .value {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 15px 22px;
+    border-radius: 18px;
+    background: linear-gradient(100deg, var(--ink), #232c3f);
+    color: #fff;
+  }
+  .value .vh {
+    flex: 0 0 auto;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    padding-right: 22px;
+    border-right: 1px solid rgba(255,255,255,0.18);
+  }
+  .value p {
+    margin: 0;
+    font-size: 16.5px;
+    line-height: 1.35;
+    color: rgba(255,255,255,0.82);
+  }
+
+  @media (max-width: 920px) {
+    body { padding: 32px 20px; }
+    .hero { grid-template-columns: 1fr; gap: 22px; align-items: start; }
+    .ps { grid-template-columns: 1fr; }
+    .panel-head .col-tags { display: none; }
+    .row { grid-template-columns: 1fr; gap: 10px; }
+    .value { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .value .vh { border-right: 0; padding-right: 0; }
+  }
+</style>
+</head>
+<body>
+  <main class="slide">
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Slide 1 — Problem &amp; Business Need</div>
+        <h1>Product <em>Recognition</em></h1>
+      </div>
+      <p class="lead">
+        <strong>Product Recognition</strong> is a Computer Vision technology that identifies
+        exact products in images or video, usually at SKU level.
+      </p>
+    </section>
+
+    <section class="ps">
+      <div class="ps-card">
+        <span class="ps-label"><span class="ic">✕</span> Problem</span>
+        <p>A camera can capture products, but software cannot reliably know what exact item it is
+        seeing without barcode scans, manual entry, or human review.</p>
+      </div>
+      <div class="ps-card solution">
+        <span class="ps-label"><span class="ic">✓</span> Solution</span>
+        <p>Product Recognition turns visual input into SKU-level product data — enabling stock
+        checks, checkout validation, shrink detection, and other workflows.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Business Needs &amp; Use Cases</h2>
+        <div class="col-tags">
+          <span>Needs / Use Case</span>
+          <span>Value</span>
+          <span>Beneficiaries</span>
+        </div>
+      </div>
+
+      <div class="row retail">
+        <div class="biz"><span class="chip"></span><span class="name">Retail &amp; Shelf Management<small>Retail</small></span></div>
+        <div class="cell"><b>Shelf management</b>, real-time shelf data, availability monitoring</div>
+        <div class="cell">Reduced out-of-stocks, faster restocking, lower costs, better inventory control</div>
+        <div class="cell">Retailers, store managers, operations teams, shoppers</div>
+      </div>
+
+      <div class="row cpg">
+        <div class="biz"><span class="chip"></span><span class="name">CPG Brands<small>Brands</small></span></div>
+        <div class="cell"><b>In-store execution</b>, shelf agreements, share of shelf, product presence</div>
+        <div class="cell">Better compliance, improved visibility, stronger promotions</div>
+        <div class="cell">CPG brands, sales teams, retail execution teams</div>
+      </div>
+
+      <div class="row checkout">
+        <div class="biz"><span class="chip"></span><span class="name">Smart / Self-Checkout<small>Checkout</small></span></div>
+        <div class="cell"><b>Match item to scan</b>, reduce fraud, reduce checkout errors</div>
+        <div class="cell">Better product validation, reduced shrink, lower revenue loss</div>
+        <div class="cell">Retailers, cashiers, shoppers</div>
+      </div>
+
+      <div class="row ecommerce">
+        <div class="biz"><span class="chip"></span><span class="name">E-commerce<small>Digital Commerce</small></span></div>
+        <div class="cell"><b>Visual search</b>, similar product matching, catalog matching, tagging</div>
+        <div class="cell">Better discovery, fewer catalog errors, automated tagging, improved CX</div>
+        <div class="cell">E-commerce platforms, sellers, shoppers</div>
+      </div>
+
+      <div class="row logistics">
+        <div class="biz"><span class="chip"></span><span class="name">Logistics &amp; Robotics<small>Operations</small></span></div>
+        <div class="cell"><b>Validate picked products</b>, reduce sorting errors, warehouse automation</div>
+        <div class="cell">Higher accuracy, fewer mistakes, better automation</div>
+        <div class="cell">Operations teams, warehouse teams, robotics systems</div>
+      </div>
+    </section>
+
+    <footer class="value">
+      <span class="vh">Business Value</span>
+      <p>Accurate product recognition reduces manual work, improves operational accuracy, and
+      enables faster decisions across business workflows.</p>
+    </footer>
+
+  </main>
+</body>
+</html>
